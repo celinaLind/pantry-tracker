@@ -1,10 +1,25 @@
+'use client';
 import * as React from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { lightBlue, lime } from '@mui/material/colors';
-
-const items = [ "item1", "item2", "item3", "item4", "item5", "item6", "item7", "item8", "item9", "item10" ];
+import { app, firestore } from '../firebase';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore/lite';
 
 export default function Home() {
+  const [pantryItems, setPantryItems] = useState([]);
+  useEffect(() => {
+    const updateItems = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "pantry"));
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.id);
+      });
+      console.log(items);
+      setPantryItems(items);
+    };
+    updateItems();
+  }, []);
   return (
     <Box width='100vw' height='100vh' display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
       <Box border={1} overflow="hidden">
@@ -13,7 +28,7 @@ export default function Home() {
         </Box>
         <Box width="100%" height="300px" sx={{ overflow: 'auto' }}>
         <Stack spacing={2}>
-          {items.map((item, index) => (
+          {pantryItems.map((item, index) => (
             <Box key={index} sx={{ textAlign: 'center', backgroundColor: lightBlue[50]}}>
               <Typography variant="h4">{ item }</Typography>
             </Box>
