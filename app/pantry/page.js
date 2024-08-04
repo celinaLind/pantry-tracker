@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Box, Button, Modal, Stack, Typography, TextField } from '@mui/material';
-import { firestore } from '../../firebase';
+import { firestore} from '../../firebase';
 import { useEffect, useState } from 'react';
 import { collection, getDoc, doc, query, setDoc, deleteDoc, getDocs } from 'firebase/firestore';
 
@@ -11,7 +11,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'white',
+    bgcolor: '#FAEDCE !important',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
@@ -115,14 +115,14 @@ const style = {
             </Stack>
           </Box>
         </Modal>
-        <Button variant="contained" onClick={handleOpen}>
+        <Button variant="contained" bgcolor="#E0E5B6 !important" onClick={handleOpen}>
           Add New Item
         </Button>
         <Box border={'1px solid #333'}>
           <Box
             width="800px"
             height="100px"
-            bgcolor={'#ADD8E6'}
+            bgcolor={'#E0E5B6'}
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
@@ -136,11 +136,11 @@ const style = {
               <Box
                 key={name}
                 width="100%"
-                minHeight="150px"
+                minHeight="100px"
                 display={'flex'}
                 justifyContent={'space-between'}
                 alignItems={'center'}
-                bgcolor={'#f0f0f0'}
+                bgcolor={'#FAEDCE'}
                 paddingX={5}
               >
                 <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
