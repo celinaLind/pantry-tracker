@@ -1,9 +1,10 @@
 'use client';
 import * as React from 'react';
-import { Box, Button, Modal, Stack, Typography, TextField } from '@mui/material';
+import { Box, Button, Modal, Stack, Typography, TextField, Card, CardHeader, CardContent, CardActions, Select, MenuItem } from '@mui/material';
 import { firestore} from '../../firebase';
 import { useEffect, useState } from 'react';
 import { collection, getDoc, doc, query, setDoc, deleteDoc, getDocs } from 'firebase/firestore';
+
 
 const style = {
     position: 'absolute',
@@ -22,30 +23,36 @@ const style = {
   
   export default function Pantry() {
     const [pantry, setPantry] = useState([]);
-    const [open, setOpen] = useState(false);
+   const [modalState, setModalState] = useState({
+    add: false,
+    edit: false
+   })
     const [itemName, setItemName] = useState('');
+    const [quantityAmt, setQuantityAmt] = useState('');
   
-    const handleOpen = () => {
-      setOpen(true);
+    const handleModalOpen = (modalType) => {
+      setModalState(prev => ({...prev, [modalType]: true}));
     };
   
-    const handleClose = () => {
-      setOpen(false);
+    const handleModalClose = (modalType) => {
+      setModalState(prev => ({...prev, [modalType]: false}));
+      setItemName('');
+  setQuantityAmt('');
     };
   
-    const addItem = async (item) => {
+    const addItem = async (item, addQuantity) => {
       const docRef = doc(collection(firestore, 'pantry'), item);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const { quantity } = docSnap.data()
-        await setDoc(docRef, { quantity: quantity + 1 })
+        await setDoc(docRef, { quantity: quantity + addQuantity })
       } else {
-        await setDoc(docRef, { quantity: 1 })
+        await setDoc(docRef, { quantity: addQuantity })
       }
       await updatePantry();
     }
   
-    const removeItem = async (item) => {
+    const removeItem = async (item, rmQuantity) => {
       const docRef = doc(collection(firestore, 'pantry'), item);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -75,8 +82,8 @@ const style = {
   
     return (
       <Box
-        width="100vw"
-        height="100vh"
+        width="100%"
+        height="100%"
         display={'flex'}
         justifyContent={'center'}
         flexDirection={'column'}
@@ -84,8 +91,8 @@ const style = {
         gap={2}
       >
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={modalState.add}
+          onClose={() => handleModalClose('add')}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -99,38 +106,108 @@ const style = {
                 label="Item"
                 variant="outlined"
                 fullWidth
+                required
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
               />
-              <Button
+              <TextField 
+              id='outlined-basic' 
+              label='Quantity'
+              variant='outlined'
+              type='number'
+              inputProps={{min: '0', step:'1'}}
+              required
+              fullWidth
+              value={quantityAmt}
+              onChange={(e) => {
+                const value= parseInt(e.target.value, 10);
+                setQuantityAmt(isNaN(value) ? 0 : value);}}
+              />
+            </Stack><Button
                 variant="outlined"
                 onClick={() => {
-                  addItem(itemName)
+                  addItem(itemName, quantityAmt)
+                  setQuantityAmt('')
                   setItemName('')
                   handleClose()
                 }}
               >
                 Add
               </Button>
-            </Stack>
           </Box>
         </Modal>
-        <Button variant="contained" bgcolor="#E0E5B6 !important" onClick={handleOpen}>
-          Add New Item
-        </Button>
-        <Box border={'1px solid #333'}>
-          <Box
-            width="800px"
-            height="100px"
-            bgcolor={'#E0E5B6'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-          >
-            <Typography variant={'h2'} color={'#333'} textAlign={'center'}>
-              Pantry Items
+        <Modal
+          open={modalState.edit}
+          onClose={() => handleModalClose('edit')}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Edit Item
             </Typography>
+            <Stack width="100%" direction={'row'} spacing={2}>
+            <Select
+    labelId="itemName"
+    value={itemName}
+    label="Item"
+    onChange={(e) => setItemName(e.target.value)}
+  >
+    {pantry.map(({ name }) => (
+    <MenuItem key={name} value={name}>
+      {name.charAt(0).toUpperCase() + name.slice(1)}
+    </MenuItem>
+  ))}
+  </Select>
+              <TextField 
+              id='outlined-basic' 
+              label='Quantity'
+              variant='outlined'
+              type='number'
+              inputProps={{min: '0', step:'1'}}
+              required
+              fullWidth
+              value={quantityAmt}
+              onChange={(e) => {
+                const value= parseInt(e.target.value, 10);
+                setQuantityAmt(isNaN(value) ? 0 : value);}}
+              />
+            </Stack>
+            <Button
+                variant="outlined"
+                onClick={() => {
+                  addItem(itemName, quantityAmt)
+                  setQuantityAmt('')
+                  setItemName('')
+                  handleClose()
+                }}
+              >
+                Add
+              </Button>
+            <Button
+                variant="outlined"
+                onClick={() => {
+                  removeItemItem(itemName, quantityAmt)
+                  setQuantityAmt('')
+                  setItemName('')
+                  handleClose()
+                }}
+              >
+                Remove
+              </Button>
           </Box>
+        </Modal>
+        <Card>
+          <CardHeader title="Our Pantry" sx={{
+      backgroundColor: '#E0E5B6',
+      '& .MuiCardHeader-title': {
+        fontSize: '4rem',
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center'
+      },
+    }} />
+          <CardContent>
           <Stack width="800px" height="300px" spacing={2} overflow={'auto'}>
             {pantry.map(({ name, quantity }) => (
               <Box
@@ -155,7 +232,31 @@ const style = {
               </Box>
             ))}
           </Stack>
-        </Box>
+          </CardContent>
+          <CardActions>
+        <Button variant="contained" bgcolor="#E0E5B6 !important" onClick={() => handleModalOpen('add')}>
+          Add Item
+        </Button>
+        <Button onClick={() => handleModalOpen('edit')}>
+          Edit Item
+        </Button>
+          </CardActions>
+        </Card>
+        {/* <Box border={'1px solid #333'}>
+          <Box
+            width="800px"
+            height="100px"
+            bgcolor={'#E0E5B6'}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
+            <Typography variant={'h2'} color={'#333'} textAlign={'center'}>
+              Pantry Items
+            </Typography>
+          </Box>
+          
+        </Box> */}
       </Box>
     );
     //   <Box width='100vw' height='100vh' display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={2}>
