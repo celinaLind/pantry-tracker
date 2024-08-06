@@ -29,6 +29,15 @@ export default function Pantry() {
   })
   const [itemName, setItemName] = useState('');
   const [quantityAmt, setQuantityAmt] = useState('');
+  const [editingItem, setEditingItem] = useState({
+    name: '',
+    quantity: ''
+  });
+
+  const handleEditOpen = (itemName, itemQuantity) => {
+    setEditingItem({name: itemName, quantity: itemQuantity});
+    handleModalOpen('edit');
+  }
 
   const handleModalOpen = (modalType) => {
     setModalState(prev => ({ ...prev, [modalType]: true }));
@@ -195,7 +204,7 @@ export default function Pantry() {
           <Button
             variant="outlined"
             onClick={() => {
-              addItem(name, quantityAmt)
+              addItem(editingItem.name, quantityAmt)
               setQuantityAmt('')
               setItemName('')
               handleModalClose('edit')
@@ -206,7 +215,7 @@ export default function Pantry() {
           <Button
             variant="outlined"
             onClick={() => {
-              removeItem(name, quantityAmt)
+              removeItem(editingItem.name, quantityAmt)
               setQuantityAmt('')
               setItemName('')
               handleModalClose('edit')
@@ -222,7 +231,9 @@ export default function Pantry() {
                 <IconButton aria-label="removeOne" onClick={() => removeItem(name, 1)}>
                   <Remove />
                 </IconButton>
-                <IconButton aria-label="edit" onClick={() => handleModalOpen('edit')}>
+                {/* TODO: when editing the named item is the last item in the list NOT 
+                the current item being worked on need to change that */}
+                <IconButton aria-label="edit" onClick={() => handleEditOpen(name, quantity)}>
                   <Edit />
                 </IconButton>
                 <IconButton aria-label="delete" onClick={() => removeItem(name)}>
