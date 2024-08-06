@@ -231,8 +231,6 @@ export default function Pantry() {
                 <IconButton aria-label="removeOne" onClick={() => removeItem(name, 1)}>
                   <Remove />
                 </IconButton>
-                {/* TODO: when editing the named item is the last item in the list NOT 
-                the current item being worked on need to change that */}
                 <IconButton aria-label="edit" onClick={() => handleEditOpen(name, quantity)}>
                   <Edit />
                 </IconButton>
