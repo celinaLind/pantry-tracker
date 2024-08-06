@@ -68,7 +68,7 @@ const [value, setValue] = React.useState(0);
 </Box>
 <CustomTabPanel value={value} index={0}>
   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, margin: 'auto' }}>
-      <Typography variant="h3">Welcome to Your Pantry</Typography>
+      <Typography variant="h3">Welcome to Our Pantry</Typography>
     </Box>
 </CustomTabPanel>
 <CustomTabPanel value={value} index={1}>
