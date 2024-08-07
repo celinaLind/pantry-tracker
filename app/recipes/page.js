@@ -5,11 +5,13 @@ import { Box, Button, Checkbox, FormControlLabel, FormGroup, Typography } from '
 import { main } from './api'
 import { firestore } from '@/firebase';
 import { getDocs, collection } from 'firebase/firestore';
+import { Block } from '@mui/icons-material';
 
 export default function RecipePage() {
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [recipe, setRecipe] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [generatePressed, setGeneratePressed] = useState(false);
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -47,7 +49,10 @@ export default function RecipePage() {
   return (
     <Box sx={{ maxWidth: 600, margin: 'auto', padding: 3 }}>
       <Typography variant="h4" gutterBottom>
-        Generate a Recipe
+        Let's Find a Recipe
+      </Typography>
+      <Typography variant='h5'>
+        Pick items to include in recipe:
       </Typography>
       <FormGroup>
         {ingredients.map((ingredient) => (
@@ -69,8 +74,10 @@ export default function RecipePage() {
         onClick={handleGenerateRecipe}
         sx={{ marginTop: 2 }}
       >
-        Generate Recipe
+        Generate
       </Button>
+      <br />
+      <Typography variant='caption' display={generatePressed? 'block': 'none'}>Press again to generate a new recipe.</Typography>
       {recipe && (
         <Box sx={{ marginTop: 3 }}>
           <Typography variant="h5" gutterBottom>
