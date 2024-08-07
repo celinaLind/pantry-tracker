@@ -50,7 +50,7 @@ export default function RecipePage() {
   return (
     <Box sx={{ maxWidth: 600, margin: 'auto', padding: 3 }}>
       <Typography variant="h4" gutterBottom>
-        Let's Find a Recipe
+        Let&apos;s Find a Recipe
       </Typography>
       <Typography variant='h5'>
         Pick items to include in recipe:
