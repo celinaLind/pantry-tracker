@@ -37,6 +37,7 @@ export default function RecipePage() {
         console.log('Selected Ingredients:', selectedIngredients);
         const generatedRecipe = await main(selectedIngredients);
         setRecipe(generatedRecipe);
+        setGeneratePressed(true);
       } catch (error) {
         console.error('Error generating recipe:', error);
         setRecipe('Failed to generate recipe. Please try again.');
@@ -77,7 +78,7 @@ export default function RecipePage() {
         Generate
       </Button>
       <br />
-      <Typography variant='caption' display={generatePressed? 'block': 'none'}>Press again to generate a new recipe.</Typography>
+      <Typography variant='caption' display={generatePressed? "block" : "none" }>Press again to generate a new recipe.</Typography>
       {recipe && (
         <Box sx={{ marginTop: 3 }}>
           <Typography variant="h5" gutterBottom>
