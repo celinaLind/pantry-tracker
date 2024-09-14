@@ -18,6 +18,7 @@ Add, edit, and remove items from our pantry then use the recipe generator with a
 - Firebase
 - Groq AI
 - Material UI
+- Vercel Deployment
 
 ## Contributing
 
