@@ -7,28 +7,21 @@ Add, edit, and remove items from our pantry then use the recipe generator with a
 [![Pantry Tracker Walkthrough](https://img.youtube.com/vi/QW0GLhunAM4/0.jpg)](https://www.youtube.com/watch?v=QW0GLhunAM4)
 
 ## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
+- [Skills Used](#skills-used
 - [Contributing](#contributing)
 - [Coming Soon](#coming-soon)
 - [Licensing](#licensing)
 
-## Installation
+## Skills Used
 
-1. Clone the repository:
-
-       git clone https://github.com/celinaLind/pantry-tracker.git
-
-2. Install Dependencies
-
-       npm install
-## Usage
-
-    npm run dev
+- Javascript
+- Firebase
+- Groq AI
+- Material UI
 
 ## Contributing
 
-Fork repository and create pull requests with changes made.
+No contributions requested.
 
 ## Coming Soon:
 
