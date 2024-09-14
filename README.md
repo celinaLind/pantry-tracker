@@ -7,7 +7,7 @@ Add, edit, and remove items from our pantry then use the recipe generator with a
 [![Pantry Tracker Walkthrough](https://img.youtube.com/vi/QW0GLhunAM4/0.jpg)](https://www.youtube.com/watch?v=QW0GLhunAM4)
 
 ## Table of Contents
-- [Skills Used](#skills-used
+- [Skills Used](#skills-used)
 - [Contributing](#contributing)
 - [Coming Soon](#coming-soon)
 - [Licensing](#licensing)
