@@ -9,6 +9,7 @@ Add, edit, and remove items from our pantry then use the recipe generator with a
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Coming Soon](#coming-soon)
+- [Licensing](#licensing)
 
 ## Installation
 
@@ -38,3 +39,6 @@ Fork repository and create pull requests with changes made.
     V1.4 - Recipe page Styling (fix how current ingredients populate)
 
     V2 - Create list of remaining ingredients for recipes
+
+## License
+This project is licensed under the [MIT License](LICENSE).
