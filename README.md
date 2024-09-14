@@ -10,7 +10,7 @@ Add, edit, and remove items from our pantry then use the recipe generator with a
 - [Skills Used](#skills-used)
 - [Contributing](#contributing)
 - [Coming Soon](#coming-soon)
-- [Licensing](#licensing)
+- [License](#license)
 
 ## Skills Used
 
@@ -35,6 +35,9 @@ No contributions requested.
     V1.4 - Recipe page Styling (fix how current ingredients populate)
 
     V2 - Create list of remaining ingredients for recipes
+
+![image](https://github.com/user-attachments/assets/a679768f-288a-4d00-bde2-e8d87d06ed36)
+
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
