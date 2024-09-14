@@ -4,6 +4,8 @@
 
 Add, edit, and remove items from our pantry then use the recipe generator with any ingredients currently in the pantry to create a delicious recipe to try.
 
+[![Pantry Tracker Walkthrough](https://img.youtube.com/vi/QW0GLhunAM4/0.jpg)](https://www.youtube.com/watch?v=QW0GLhunAM4)
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
